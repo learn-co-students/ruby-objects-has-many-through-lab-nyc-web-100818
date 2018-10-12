@@ -23,7 +23,6 @@ class Patient
       Appointment.all.select {|appt| appt.patient ==self}
   end
 
-
   def doctors
       Appointment.all.map do |appointments|
         if appointments.patient == self

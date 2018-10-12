@@ -14,11 +14,6 @@ class Appointment
     @doctor = doctor
     @date = date
     @@all << self
-
   end
-
-
-
-
 
 end

@@ -33,6 +33,3 @@ class Artist
   end
 
 end
-
-
-#self.new_song("thing", "thing")
