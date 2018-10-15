@@ -1,35 +1,33 @@
 class Doctor
 
-attr_accessor :name, :appointments
+attr_accessor :name
 
 @@all = []
 
-  def initialize(name)
-    @name = name
-    @@all << self
-    @appointments = []
+def initialize(name)
+  @name = name
+  @@all << self
+end
+
+def self.all
+  @@all
+end
+# #new_appointment
+# given a date and a patient, creates a new appointment
+def new_appointment(patient, date)
+  Appointment.new(patient, self, date)
+end
+
+def appointments
+  Appointment.all.select do |appointment|
+    appointment.doctor == self
   end
+end
 
-  def self.all
-    @@all
+#has many patients, through appointments, checking through appointment instances and calling all the patients
+def patients
+  Appointment.all.map do |appointment|
+    appointment.patient
   end
-
-
-  def new_appointment(patient, date)
-    Appointment.new(patient, self, date)
-  end
-
-  #appointments has many appointments
-  def appointments
-    @appointments
-  end
-
-  #patients   has many patients, through appointments
-
- def patients
-   my_appointments = Appointment.all.select do |appointment| appointment.doctor == self
-   end
-   my_appointments.map do |appointments| appointments.patient
-   end
- end
+end
 end #end of Doctor class

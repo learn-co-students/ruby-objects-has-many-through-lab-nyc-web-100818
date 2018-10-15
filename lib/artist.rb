@@ -1,35 +1,39 @@
 class Artist
 
+attr_accessor :name
+@@all = []
 
-attr_accessor :name, :songs
-
-  @@all = []  #class variable
-
-  def initialize(name)
-    @name = name
-    @@all << self #push self into all array (An artist is initialized with a name and is saved in the @@all array.)  end
-    @songs = []
-  end
-
-  def self.all  #calls the @@all class *lists each artist in the class varaible
-    @@all
-  end
-
-
-  def genres
-    #looping throuhg all the Songs class array
-    my_songs = Song.all.select do |song| song.artist == self #and checking if the self is same
-    end
-    my_songs.map do |song| song.genre
-    end
-  end
-
-# The Artist class needs an instance method, #new_song, that takes in an argument
-# of a name and genre creates a new song. That song should know that it belongs to
-# the artist.
-
-  def new_song(name, genre)
-    Song.new(name, self, genre) #<- creates new song  # given a name and genre, creates a new song associated with that artist
-  end
-
+def initialize(name)
+  @name = name
+  @@all << self
 end
+
+def self.all
+  @@all
+end
+
+# that takes in an argument of a name and genre creates a new song. That song should know that it belongs to the artist.
+def new_song(name, genre)
+  Song.new(name, self, genre)
+end
+
+# that iterates through all songs and finds the songs that belong to that artist. Try using select to achieve this.
+def songs
+  Song.all.select do |song|
+    song.artist == self
+  end
+end
+
+ # has many artists, through songs
+def genres
+songs.map do |song|
+  song.genre
+end
+end
+  # Artist instances have many genres, through songs. Calls on #songs method defined above, #songs method already returns an array with all songs that match current Artist instance.
+  # We can use .map to return an array with all genres that belong to the current instance of Artist (through songs)
+
+
+#genres that iterates over that artist's songs and collects the genre of each song.
+
+end #end of Artist class
